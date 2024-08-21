@@ -1,0 +1,3 @@
+To check if the firewall is enabled on your Raspberry Pi, you can run the command sudo iptables -L. If the output shows that the firewall has some rules in place, it means the firewall is enabled.
+
+sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT

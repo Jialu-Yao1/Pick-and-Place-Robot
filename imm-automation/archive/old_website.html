@@ -1,0 +1,134 @@
+<html>
+  <head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  </head>
+  <body>
+      <div class="container-fluid">
+          <h1 style="text-align: center">Pick and Place Robot</h1>
+      </div>
+      <div class="container-fluid">
+          <div class="row text-end h5 justify-content-end">
+              Odoo status:</h3> <span id="odoo_status"></span>
+              IMM status: <span id="imm_status"></span>
+              Automation Network status: <span id="an_status"></span>
+          </div>
+      </div>
+      <div class="row">&nbsp</div>
+      <div class="row">&nbsp</div>
+      <div class="container-fluid">
+          <div class="row h6">
+              <div class="col-1"> </div>
+              <div class="col-1"> Jog axes </div>
+              <div class="col-1"> &nbsp </div>
+
+              <div class="row"> &nbsp </div>
+
+              <div class="row">
+                  <div class="col-1"> <button id="xp" class="btn btn-primary">X+</button> </div>
+                  <div class="col-1"> <button id="yp" class="btn btn-secondary">Y+</button></div>
+                  <div class="col-1"> <button id="zp" class="btn btn-info">Z+</button></div>
+                  <div class="col-1"> &nbsp </div>
+                  <div class="col-1"> <p>Storage status: <span id="storage_status"></span></p> </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-1"> <button id="xn" class="btn btn-primary">X-</button> </div>
+                  <div class="col-1"> <button id="yn" class="btn btn-secondary">Y-</button></div>
+                  <div class="col-1"> <button id="zn" class="btn btn-info">Z-</button></div>
+                  <div class="col-1"> &nbsp </div>
+                  <div class="col-1"> <button id="clear" class="btn btn-warning btn-lg">Clear Storage</button></div>
+              </div>
+
+              <div class="row"> &nbsp </div>
+
+              <div class="row">
+                  <div class="col-1"> <p>Robot location: <span id="robot_status"></span></p> </div>
+                  <div class="col-1"> &nbsp </div>
+                  <div class="col-1"> &nbsp </div>
+                  <div class="col-1"> &nbsp </div>
+                  <div class="col-1"> Batches in storage: </div>
+              </div>
+              <div class="row">
+                  <div class="col-1"> &nbsp </div>
+                  <div class="col-1"> <button id="home" class="btn btn-dark btn-lg">Home</button></div>
+                  <div class="col-8"> &nbsp </div>
+                  <div class="col-1"> <button id="start" class="btn btn-success btn-lg">Start</button></div>
+                  <div class="col-1"> <button id="stop" class="btn btn-danger btn-lg">Stop</button></div>
+              </div>
+          </div>
+
+
+
+
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+              <script>
+                  function updateStatus() {
+                      // Make an AJAX request to the Raspberry Pi to retrieve the current status
+                      $.ajax({
+                          url: "/status",
+                          success: function (data) {
+                              // Update the HTML to display the status
+                              $("#status").text(data.status);
+                          }
+                      });
+                  }
+
+                  $("#xp").click(function () {
+                      // Send a request to the Raspberry Pi to move the robot up
+                      $.ajax({
+                          url: "/moveUp",
+                          success: function () {
+                              updateStatus();
+                          }
+                      });
+                  });
+                  $("#xn").click(function () {
+                      // Send a request to the Raspberry Pi to move the robot down
+                      $.ajax({
+                          url: "/moveDown",
+                          success: function () {
+                              updateStatus();
+                          }
+                      });
+                  });
+                  $("#yp").click(function () {
+                      // Send a request to the Raspberry Pi to move the robot left
+                      $.ajax({
+                          url: "/moveLeft",
+                          success: function () {
+                              updateStatus();
+                          }
+                      });
+                  });
+                  $("#yn").click(function () {
+                      // Send a request to the Raspberry Pi to move the robot right
+                      $.ajax({
+                          url: "/moveRight",
+                          success: function () {
+                              updateStatus();
+                          }
+                      });
+                  });
+                  $("#zp").click(function () {
+                      // Send a request to the Raspberry Pi to move the robot left
+                      $.ajax({
+                          url: "/moveLeft",
+                          success: function () {
+                              updateStatus();
+                          }
+                      });
+                  });
+                  $("#zn").click(function () {
+                      // Send a request to the Raspberry Pi to move the robot right
+                      $.ajax({
+                          url: "/moveRight",
+                          success: function () {
+                              updateStatus();
+                          }
+                      });
+                  });
+                  updateStatus();
+              </script>
+</body>
+</html>
