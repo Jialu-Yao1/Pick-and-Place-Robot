@@ -13,7 +13,9 @@ class EndEffector:
         self.current_angle = 0  # Predefine the current angle
 
     def set_angle(self, angle):
-        # Calculation of the corresponded DutyCycle of input (degree)
+        """
+        Set the angle of the servo motor
+        """
         dc_0deg = 2.765  # Define the DutyCycle when SERVO 1 at 0 degeree (min value)
         dc_189deg = 12.6  # Define the DutyCycle when SERVO 1 at 189 degree (max value)
         duty_cycle = dc_0deg + (angle / 189.0) * (dc_189deg - dc_0deg)
@@ -21,17 +23,25 @@ class EndEffector:
         sleep(0.5)
 
     def pick_part_1(self):
+        """
+        Pick section 1
+        """
         self.pwm1.start(self.current_angle)
         self.set_angle(35)  # SERVO 1 rotate to 15 degree position
         sleep(1)  # Waiting for the trigger of ejector pin
 
     def pick_part_2(self):
+        """
+        Pick section 2
+        """
         self.set_angle(25)  # SERVO 1 rotate to 0 degree position to clamp the sprue
         self.current_angle = 0
         print("part picked")
 
     def drop_part(self):
-        # SERVO 1 rotate to 90 degree position to open the gripper and part dropped
+        """
+        SERVO 1 rotate to 90 degree position to open the gripper and part dropped
+        """
         self.set_angle(90)
         self.current_angle = 90
         print("part dropped")
